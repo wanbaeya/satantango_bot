@@ -1,0 +1,44 @@
+name: satantango-watch
+
+on:
+  schedule:
+    - cron: '0,30 * * * *'   # 30분마다 새 작업 시작 → 작업 안에서 60초마다 확인
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: satantango-watch
+  cancel-in-progress: true   # 새 작업이 이전 작업을 이어받음 (공백 최소화)
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - run: pip install requests
+
+      - name: 예매 확인
+        env:
+          TG_TOKEN: ${{ secrets.TG_TOKEN }}
+          TG_CHAT: ${{ secrets.TG_CHAT }}
+        run: python satantango_watch.py --interval 60 --duration 1800
+
+      - name: 상태 저장
+        if: always()
+        run: |
+          if [[ -n "$(git status --porcelain seen.json)" ]]; then
+            git config user.name  "satantango-bot"
+            git config user.email "bot@users.noreply.github.com"
+            git add seen.json
+            git commit -m "state: $(date -u +%Y-%m-%dT%H:%MZ)"
+            git pull --rebase --autostash -q || true
+            git push
+          fi
