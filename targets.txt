@@ -9,5 +9,7 @@
 # 가운데 세로줄 기호( | )는 엔터 키 위쪽에서 Shift를 누른 채 치면 나옴.
 # 맨 앞에 #이 붙은 줄은 메모라서 무시됨. 안 쓸 줄은 앞에 #을 붙여두면 됨.
 
-라이카시네마 | https://여기에-주소-붙여넣기
-아트하우스모모 | https://여기에-주소-붙여넣기
+씨네큐브-사탄탱고 | https://www.cinecube.co.kr/cinema/view/4683
+씨네큐브-공지사항 | https://www.cinecube.co.kr/support/notice
+시네마테크KOFA | https://www.koreafilm.or.kr/cinematheque/schedule
+서울아트시네마 | https://www.tinyticket.net/event-manager/EMTQ8RgcS22R
